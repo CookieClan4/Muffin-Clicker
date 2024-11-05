@@ -3,6 +3,11 @@ if (window.localStorage.muffins) {
 } else {
   var muffins = 0;
 }
+if (window.localStorge.clicks) {
+  var clicks = parseInt(window.localStorage.clicks);
+} else {
+  var clicks = 0;
+}
 if (window.localStorage.clickOne) {
   var clickOne = parseInt(window.localStorage.clickOne);
 } else {
@@ -42,9 +47,11 @@ if (window.localStorage.boosterThree) {
   var boosterThree = 0;
 }
 
+
 function handleClick() {
   muffins = muffins + (clickOne + (clickTwo * 6)) + (1 + (0.1 * boosterOne));
   updateDisplay();
+  clicks = clicks + 1;
   window.localStorage.setItem("muffins", muffins);
 }
 
@@ -173,3 +180,5 @@ document.getElementById("upgradeOne").addEventListener("click", buyUpgradeOne);
 document.getElementById("upgradeTwo").addEventListener("click", buyUpgradeTwo);
 document.getElementById("upgradeThree").addEventListener("click", buyUpgradeThree);
 document.getElementById("reset").addEventListener("click", reset);
+
+
