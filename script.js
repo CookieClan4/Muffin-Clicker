@@ -3,7 +3,7 @@ if (window.localStorage.muffins) {
 } else {
   var muffins = 0;
 }
-if (window.localStorge.clicks) {
+if (window.localStorage.clicks) {
   var clicks = parseInt(window.localStorage.clicks);
 } else {
   var clicks = 0;
