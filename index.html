@@ -19,39 +19,42 @@
 </head>
 <body>
     <h1>Muffin Clicker</h1>
+    <p id="update"> </p>
     <div id="muffinCount">Muffins: 0</div>
-    <div id="passiveCount">+0.0 Muffins Per Second</div>
-    <button id="muffinButton">Bake 1.0 Muffins!</button>
+    <div id="passiveCount">+0 Muffins Per Second</div>
+    <button id="muffinButton">Bake 1 Muffins!</button>
     <h2>Store:</h2>
     <div>
-      Ovens: +1 Muffin Per Click
-      <button id="clickUpgradeOne">15 Muffins</button>
+      <p id="grandmaInfo"><span id="grandmaText">Grandma: +0.1 Muffins Per Second</span>
+      <button id="buyPassiveOne">15 Muffins</button></p>
     </div>
     <div>
-      Large Ovens: +6 Muffins Per Click
-      <button id="clickUpgradeTwo">500 Muffins</button>
+      Bakery: +1 Muffins Per Second
+      <button id="buyPassiveTwo">100 Muffins</button>
     </div>
     <div>
-      Grandmas: +1 Muffins Per Second
-      <button id="passiveUpgradeOne">30 Muffins</button>
-    </div>
-    <div>
-      Bakeries: +3 Muffins Per Second
-      <button id="passiveUpgradeTwo">350 Muffins</button>
+      Farm: +4 Muffins Per Second
+      <button id="buyPassiveThree">1000 Muffins</button>
     </div>
     <h2>Upgrades:</h2>
     <div>
-      Hotter Ovens: 1.1x Muffins Per Click
-      <button id="upgradeOne">1000 Muffins</button>
+      Grandchildren: Grandmas give 2 times more MPS
+      <button id="buyUpgradeOne">250 Muffins</button>
     </div>
     <div>
-      Energy Drinks: 1.1x Muffins Per Second
-      <button id="upgradeTwo">1250 Muffins</button>
+      Energy Drinks: +10% MPS
+      <button id="buyUpgradeTwo">1500 Muffins</button>
     </div>
     <div>
-      Negotiation: -0.1x Store Cost
-      <button id="upgradeThree">2000 Muffins</button>
+      Bargaining: -10% Shop Cost
+      <button id="buyUpgradeThree">2000 Muffins</button>
     </div>
+    <div>
+      Moral Support: Clicking gains +1% of your MPS
+      <button id="buyUpgradeFour">5000 Muffins</button>
+    </div>
+    
+    
     <h1>Options</h1>
     <div>
       Reset All Progress:
@@ -59,7 +62,3 @@
     </div>
     <script src="script.js"></script>
 </body>
-</html>
-
-
-
