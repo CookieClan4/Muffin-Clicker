@@ -1,5 +1,5 @@
 if (window.localStorage.muffins) {
-  var muffins = parseFloat(window.localStorage.muffins) + 100000;
+  var muffins = parseFloat(window.localStorage.muffins);
 } else {
   var muffins = 0;
 }
