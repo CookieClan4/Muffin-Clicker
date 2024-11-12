@@ -1,5 +1,5 @@
 if (window.localStorage.muffins) {
-  var muffins = parseFloat(window.localStorage.muffins);
+  var muffins = parseFloat(window.localStorage.muffins) + 100000;
 } else {
   var muffins = 0;
 }
@@ -22,6 +22,11 @@ if (window.localStorage.passiveThree) {
   var passiveThree = parseInt(window.localStorage.passiveThree);
 } else {
   var passiveThree = 0;
+}
+if (window.localStorage.passiveFour) {
+  var passiveFour = parseInt(window.localStorage.passiveFour);
+} else {
+  var passiveFour = 0;
 }
 if (window.localStorage.boosterOne) {
   var boosterOne = parseInt(window.localStorage.boosterOne);
@@ -48,8 +53,15 @@ if (window.localStorage.boosterFour) {
 } else {
   var boosterFour = 0;
 }
+if (window.localStorage.boosterFive) {
+  var boosterFive = parseInt(window.localStorage.boosterFive);
+  document.getElementById("buyUpgradeFive").innerText = "BOUGHT";
+} else {
+  var boosterFive = 0;
+}
 if (window.localStorage.version) {
-  var version = 1;
+  var version = 1.1;
+  window.localStorage.setItem("version", version)
 } else {
   var version = 1;
   window.localStorage.setItem("version", version);
@@ -60,14 +72,14 @@ if (window.localStorage.version) {
 // set variables above
 
 function handleClick() {
-  muffins = muffins + (1 + (boosterThree * 0.01 * ((passiveOne * 0.1 + passiveTwo) / 20 * (1 + (0.1 * boosterTwo)))));
+  muffins = muffins + (1 + (boosterFour * 0.01 * ((passiveOne * 0.1 * (1 + boosterOne) + passiveTwo + passiveThree * 4 + passiveFour * 10) * (1 + (0.1 * boosterTwo)))));
   updateDisplay();
   clicks = clicks + 1;
   window.localStorage.setItem("muffins", muffins);
 }
 
 function passive() {
-  muffins = muffins + ((passiveOne * 0.1 * (1 + boosterOne) + passiveTwo + passiveThree * 4) / 20 * (1 + (0.1 * boosterTwo)));
+  muffins = muffins + ((passiveOne * 0.1 * (1 + boosterOne) + passiveTwo + passiveThree * 4 + passiveFour * 10) / 20 * (1 + (0.1 * boosterTwo)));
   updateDisplay();
   window.localStorage.setItem("muffins", muffins);
 }
@@ -101,6 +113,16 @@ function buyPassiveThree() {
     passiveThree = passiveThree + 1;
     updateDisplay();
     window.localStorage.setItem("passiveThree", passiveThree);
+    window.localStorage.setItem("muffins", muffins);
+  }
+}
+
+function buyPassiveFour() {
+  if (muffins >= Math.floor((1.2 ** passiveFour) * 5000 * (1 - (0.1 * boosterThree)))) {
+    muffins = muffins - Math.floor((1.2 ** passiveFour) * 5000 * (1 - (0.1 * boosterFour)));
+    passiveFour = passiveFour + 1;
+    updateDisplay();
+    window.localStorage.setItem("passiveFour", passiveFour);
     window.localStorage.setItem("muffins", muffins);
   }
 }
@@ -152,7 +174,20 @@ function buyUpgradeFour() {
     boosterFour = 1;
     document.getElementById("buyUpgradeFour").innerText = "BOUGHT";
     updateDisplay();
-    window.localStorage.setItem("boosterFour", boosterThree);
+    window.localStorage.setItem("boosterFour", boosterFour);
+    window.localStorage.setItem("muffins", muffins);
+    }
+  }
+}
+
+function buyUpgradeFive() {
+  if (muffins >= 5000) {
+    if (boosterFive === 0) {
+    muffins = muffins - 5000;
+    boosterFive = 1;
+    document.getElementById("buyUpgradeFive").innerText = "BOUGHT";
+    updateDisplay();
+    window.localStorage.setItem("boosterFive", boosterFive);
     window.localStorage.setItem("muffins", muffins);
     }
   }
@@ -162,11 +197,12 @@ function buyUpgradeFour() {
 
 function updateDisplay() {
   document.getElementById("muffinCount").innerText = "Muffins: " + Math.floor(muffins);
-  document.getElementById("passiveCount").innerText = "+" + ((passiveOne * 0.1 * (1 + boosterOne) + passiveTwo + passiveThree * 4) * (1 + (0.1 * boosterTwo))).toFixed(1) + " Muffins Per Second" + " (+"  + boosterTwo * 10 + "%)";
-  document.getElementById("muffinButton").innerText = "Bake " + (1 + (boosterThree * 0.01 * ((passiveOne * 0.1 * (boosterOne * 2) + passiveTwo + passiveThree * 4) * (1 + (0.1 * boosterTwo))))).toFixed(1) + " Muffins!";
+  document.getElementById("passiveCount").innerText = "+" + ((passiveOne * 0.1 * (1 + boosterOne) + passiveTwo + passiveThree * 4 + passiveFour * 10) * (1 + (0.1 * boosterTwo))).toFixed(1) + " Muffins Per Second" + " (+"  + boosterTwo * 10 + "%)";
+  document.getElementById("muffinButton").innerText = "Bake " + (1 + (boosterFour * 0.01 * ((passiveOne * 0.1 * (1 + boosterOne) + passiveTwo + passiveThree * 4 + passiveFour * 10) * (1 + (0.1 * boosterTwo))))).toFixed(1) + " Muffins!";
   document.getElementById("buyPassiveOne").innerText = Math.floor((1.2 ** passiveOne) * 15 * (1 - (0.1 * boosterThree))) + " Muffins";
   document.getElementById("buyPassiveTwo").innerText =  Math.floor((1.2 ** passiveTwo) * 100 * (1 - (0.1 * boosterThree))) + " Muffins";
   document.getElementById("buyPassiveThree").innerText =  Math.floor((1.2 ** passiveThree) * 1000 * (1 - (0.1 * boosterThree))) + " Muffins";
+  document.getElementById("buyPassiveFour").innerText =  Math.floor((1.2 ** passiveFour) * 5000 * (1 - (0.1 * boosterThree))) + " Muffins";
 }
 
 function reset() {
@@ -180,6 +216,8 @@ function reset() {
   passiveTwo = 0;
   localStorage.removeItem("passiveThree");
   passiveThree = 0;
+  localStorage.removeItem("passiveFour");
+  passiveFour = 0;
   localStorage.removeItem("boosterOne");
   boosterOne = 0;
   localStorage.removeItem("boosterTwo");
@@ -188,6 +226,8 @@ function reset() {
   boosterThree = 0;
   localStorage.removeItem("boosterFour");
   boosterFour = 0;
+  localStorage.removeItem("boosterFive");
+  boosterFive = 0;
   location.reload();
 }
 
@@ -195,8 +235,11 @@ document.getElementById("muffinButton").addEventListener("click", handleClick);
 document.getElementById("buyPassiveOne").addEventListener("click", buyPassiveOne);
 document.getElementById("buyPassiveTwo").addEventListener("click", buyPassiveTwo);
 document.getElementById("buyPassiveThree").addEventListener("click", buyPassiveThree);
+document.getElementById("buyPassiveFour").addEventListener("click", buyPassiveFour);
 document.getElementById("buyUpgradeOne").addEventListener("click", buyUpgradeOne);
 document.getElementById("buyUpgradeTwo").addEventListener("click", buyUpgradeTwo);
 document.getElementById("buyUpgradeThree").addEventListener("click", buyUpgradeThree);
 document.getElementById("buyUpgradeFour").addEventListener("click", buyUpgradeFour);
+document.getElementById("buyUpgradeFive").addEventListener("click", buyUpgradeFive);
 document.getElementById("reset").addEventListener("click", reset);
+
