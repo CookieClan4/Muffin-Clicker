@@ -1,5 +1,5 @@
 if (window.localStorage.muffins) {
-  var muffins = parseFloat(window.localStorage.muffins);
+  var muffins = parseFloat(window.localStorage.muffins) + 100000;
 } else {
   var muffins = 0;
 }
@@ -56,6 +56,7 @@ if (window.localStorage.boosterFour) {
 if (window.localStorage.boosterFive) {
   var boosterFive = parseInt(window.localStorage.boosterFive);
   document.getElementById("buyUpgradeFive").innerText = "BOUGHT";
+  document.getElementById("bakeryText").innerText = "Bakery: +2 Muffins Per Second";
 } else {
   var boosterFive = 0;
 }
@@ -186,6 +187,7 @@ function buyUpgradeFive() {
     muffins = muffins - 5000;
     boosterFive = 1;
     document.getElementById("buyUpgradeFive").innerText = "BOUGHT";
+    document.getElementById("bakeryText").innerText = "Bakery: +2 Muffins Per Second";
     updateDisplay();
     window.localStorage.setItem("boosterFive", boosterFive);
     window.localStorage.setItem("muffins", muffins);
@@ -242,4 +244,5 @@ document.getElementById("buyUpgradeThree").addEventListener("click", buyUpgradeT
 document.getElementById("buyUpgradeFour").addEventListener("click", buyUpgradeFour);
 document.getElementById("buyUpgradeFive").addEventListener("click", buyUpgradeFive);
 document.getElementById("reset").addEventListener("click", reset);
+
 
